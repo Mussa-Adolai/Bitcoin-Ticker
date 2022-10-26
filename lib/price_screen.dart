@@ -22,6 +22,14 @@ class _PriceScreenState extends State<PriceScreen> {
     return dropdownItems;
   }
 
+  List<Text> getPeckerCurrency() {
+    List<Text> dropdownItemsC = [];
+    for (String currency in currenciesList) {
+      dropdownItemsC.add(Text(currency));
+    }
+    return dropdownItemsC;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,11 +71,7 @@ class _PriceScreenState extends State<PriceScreen> {
               onSelectedItemChanged: (selectedIndex) {
                 print(selectedIndex);
               },
-              children: [
-                Text('USD'),
-                Text('GBU'),
-                Text('EUR'),
-              ],
+              children: getPeckerCurrency(),
             ),
           ),
         ],
