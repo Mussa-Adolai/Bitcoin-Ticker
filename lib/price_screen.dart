@@ -12,7 +12,6 @@ class _PriceScreenState extends State<PriceScreen> {
   String selectedCurrency = 'USD'; // For Android
 
   DropdownButton<String> androidDropDown() {
-    // For Android
     List<DropdownMenuItem<String>> dropdownItems = [];
     for (String currency in currenciesList) {
       var newItem = DropdownMenuItem(
@@ -44,12 +43,6 @@ class _PriceScreenState extends State<PriceScreen> {
       onSelectedItemChanged: (selectedIndex) {},
       children: dropdownItemsC,
     );
-  }
-
-  //List<DropdownMenuItem> getDropdownItems() {}
-
-  List<Text> getPickerCurrency() {
-    // IOS SYS
   }
 
   @override
