@@ -1,3 +1,6 @@
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 const List<String> currenciesList = [
   'AUD',
   'BRL',
@@ -27,28 +30,24 @@ const List<String> cryptoList = [
   'ETH',
   'LTC',
 ];
+
 //
-// class CoinData {
-//   //3. Create the Asynchronous method getCoinData() that returns a Future (the price data).
-//   Future getCoinData() async {
-//     //4. Create a url combining the coinAPIURL with the currencies we're interested, BTC to USD.
-//     String requestURL = '$coinAPIURL/BTC/USD?apikey=$apiKey';
-//     //5. Make a GET request to the URL and wait for the response.
-//     http.Response response = await http.get(requestURL);
-//
-//     //6. Check that the request was successful.
-//     if (response.statusCode == 200) {
-//       //7. Use the 'dart:convert' package to decode the JSON data that comes back from coinapi.io.
-//       var decodedData = jsonDecode(response.body);
-//       //8. Get the last price of bitcoin with the key 'last'.
-//       var lastPrice = decodedData['rate'];
-//       //9. Output the lastPrice from the method.
-//       return lastPrice;
-//     } else {
-//       //10. Handle any errors that occur during the request.
-//       print(response.statusCode);
-//       //Optional: throw an error if our request fails.
-//       throw 'Problem with the get request';
-//     }
-//   }
+// const bitcoinAverageURL =
+//     'https://apiv2.bitcoinaverage.com/indices/global/ticker';
+class CoinData {
+  //3. Create the Asynchronous method getCoinData() that returns a Future (the price data).
+  Future getCurrencydata(String selectedCurrency) async {
+    var url =
+        'https://rest.coinapi.io/v1/exchangerate/BTC/$selectedCurrency?apikey=6956291F-A0B6-4F38-861B-9816D1F5BCCE';
+    http.Response response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var decodedData = jsonDecode(response.body);
+      double lastPrice = decodedData['rate'];
+      return lastPrice.toStringAsFixed(0);
+    } else {
+      print(response.statusCode);
+      throw 'Problem with the get request';
+    }
+  }
+}
 // }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'coin_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io' show Platform;
-import 'currency.dart';
 
 class PriceScreen extends StatefulWidget {
   @override
@@ -10,7 +9,7 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
-  String selectedCurrency = 'USD'; // For Android
+  String selectedCurrency = 'AUD'; // For Android
 
   // Currency currencyValue = Currency();
   // double rateValue;
@@ -25,6 +24,7 @@ class _PriceScreenState extends State<PriceScreen> {
 
   DropdownButton<String> androidDropDown() {
     List<DropdownMenuItem<String>> dropdownItems = [];
+
     for (String currency in currenciesList) {
       var newItem = DropdownMenuItem(
         child: Text(currency),
@@ -39,6 +39,7 @@ class _PriceScreenState extends State<PriceScreen> {
       onChanged: (value) {
         setState(() {
           selectedCurrency = value;
+          getData();
         });
       },
     );
@@ -52,21 +53,29 @@ class _PriceScreenState extends State<PriceScreen> {
 
     return CupertinoPicker(
       itemExtent: 32.0,
-      onSelectedItemChanged: (selectedIndex) {},
+      onSelectedItemChanged: (selectedIndex) {
+        setState(() {
+          //1: Save the selected currency to the property selectedCurrency
+          selectedCurrency = currenciesList[selectedIndex];
+          //2: Call getData() when the picker/dropdown changes.
+          getData();
+        });
+      },
       children: dropdownItemsC,
     );
   }
 
   //12. Create a variable to hold the value and use in our Text Widget. Give the variable a starting value of '?' before the data comes back from the async methods.
-  String bitcoinValueInUSD = '?';
+  String bitcoinValue = '?';
 
   //11. Create an async method here await the coin data from coin_data.dart
   void getData() async {
     try {
-      double data = await Currency().getCurrencyValue();
+      var data = await CoinData().getCurrencydata(selectedCurrency);
+
       //13. We can't await in a setState(). So you have to separate it out into two steps.
       setState(() {
-        bitcoinValueInUSD = data.toStringAsFixed(0);
+        bitcoinValue = data;
       });
     } catch (e) {
       print(e);
@@ -101,7 +110,7 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 BTC = $bitcoinValueInUSD USD',
+                  '1 BTC = $bitcoinValue $selectedCurrency ',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,
