@@ -23,6 +23,16 @@ class _PriceScreenState extends State<PriceScreen> {
     }
 
     return DropdownButton<String>(
+      dropdownColor: Colors.blue, // Backgraund color for dropdownColor
+      //  autofocus: true,
+      focusColor: Colors.red,
+      borderRadius: BorderRadius.circular(15.0),
+      menuMaxHeight: 300.0,
+      style: const TextStyle(
+        color: Colors.black,
+        fontSize: 25,
+        fontWeight: FontWeight.bold,
+      ),
       value: selectedCurrency,
       items: dropdownItems,
       onChanged: (value) {
@@ -109,10 +119,14 @@ class _PriceScreenState extends State<PriceScreen> {
             ],
           ),
           Container(
+            //  margin: EdgeInsets.only(bottom: 10.0),
             height: 150.0,
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom: 30.0),
-            color: Colors.lightBlue,
+            decoration: BoxDecoration(
+              color: Colors.greenAccent,
+            ),
+            //color: Colors.yellow,
             child: Platform.isIOS ? iosPicker() : androidDropDown(),
           ),
         ],
