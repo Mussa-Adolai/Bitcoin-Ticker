@@ -120,7 +120,7 @@ class _PriceScreenState extends State<PriceScreen> {
           ),
           Container(
             //  margin: EdgeInsets.only(bottom: 10.0),
-            height: 150.0,
+            // height: 150.0,
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom: 30.0),
             decoration: BoxDecoration(

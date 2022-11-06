@@ -40,7 +40,8 @@ class CoinData {
       crptoCoin = cCoin;
 
       var url =
-          'https://rest.coinapi.io/v1/exchangerate/$crptoCoin/$selectedCurrency?apikey=6956291F-A0B6-4F38-861B-9816D1F5BCCE';
+          'https://rest.coinapi.io/v1/exchangerate/$crptoCoin/$selectedCurrency?apikey= 6956291F-A0B6-4F38-861B-9816D1F5BCCE';
+
       http.Response response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         var decodedData = jsonDecode(response.body);
